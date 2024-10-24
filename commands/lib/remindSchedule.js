@@ -24,15 +24,15 @@ module.exports.remindSchedule = async function (client) {
                     const nowHour = nowtime.split(':')[0];
                     const scheduleHour = s.time.split(':')[0];
                     if(parseInt(scheduleHour) - parseInt(nowHour) == 1){
-                        if(parseInt(s.time.split(':')[1]) - parseInt(nowtime.split(':')[1]) <= 0){
+                        if(parseInt(s.time.split(':')[1]) - parseInt(nowtime.split(':')[1]) == 0){//ちょうど1時間前
                             sendSchedule = `${s.date} ${s.time} ${s.context}\n`;
                             sendMessage += sendSchedule;
                         }
                     }
-                    else if(parseInt(scheduleHour) - parseInt(nowHour) == 1){
+                    /*else if(parseInt(scheduleHour) - parseInt(nowHour) == 1){
                         sendSchedule = `${s.date} ${s.time} ${s.context}\n`;
                         sendMessage += sendSchedule;
-                    }
+                    }*/
                 }
             }
             if(sendSchedule.length === 0){

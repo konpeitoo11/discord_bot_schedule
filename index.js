@@ -1,7 +1,8 @@
 const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js'); //discord.js から読み込む
 //const axios = require('axios');
 const fs = require('fs');
-const { token } = require('./config.json');
+const { token } = require('./config.json');//必要に応じて選択
+//const token = process.env.DISCORD_BOT_TOKEN;
 const path = require('path');
 const { deletePreviousSchedule } = require('./commands/lib/deletePreviousSchedule.js');
 const { remindSchedule } = require('./commands/lib/remindSchedule.js');
@@ -82,6 +83,15 @@ client.on('interactionCreate', async interaction => {
         message.reply('pong'); //「pong」と返信する
     }
 });*/
-const interval = 1000 * 30;//[ms]
-setInterval(deletePreviousSchedule, interval);
-setInterval(remindSchedule, interval, client);
+const interval = 1000 * 25;//[ms]
+
+//setInterval(deletePreviousSchedule, interval);
+//setInterval(remindSchedule, interval, client);
+function loopActions(){
+	deletePreviousSchedule();
+	setTimeout(() => {
+		remindSchedule(client);
+		setTimeout(loopActions, interval);
+	}, interval);
+}
+loopActions();
