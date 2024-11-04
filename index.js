@@ -1,8 +1,8 @@
 const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js'); //discord.js から読み込む
 //const axios = require('axios');
 const fs = require('fs');
-const { token } = require('./config.json');//必要に応じて選択
-//const token = process.env.DISCORD_BOT_TOKEN;
+//const { token } = require('./config.json');//必要に応じて選択
+const token = process.env.DISCORD_BOT_TOKEN;
 const path = require('path');
 const { deletePreviousSchedule } = require('./commands/lib/deletePreviousSchedule.js');
 const { remindSchedule } = require('./commands/lib/remindSchedule.js');
@@ -71,7 +71,7 @@ client.on('interactionCreate', async interaction => {
     }
 
     try {
-        await command.execute(interaction);
+        await command.execute(interaction, client);
     } catch (error) {
         console.error(error);
         await interaction.reply({ content: 'コマンドの実行中にエラーが発生しました', ephemeral: true });

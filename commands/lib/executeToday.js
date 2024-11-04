@@ -7,8 +7,6 @@ module.exports.executeToday = async function (interaction) {
         //const response = await axios.get('http://worldtimeapi.org/api/timezone/Asia/Tokyo');
         const response = await axios.get('https://timeapi.io/api/Time/current/zone?timeZone=Asia/Tokyo');
         const jsonString = JSON.stringify(response.data);
-        //console.log(response);
-        //console.log(response.data);
         const rowdate = JSON.parse(jsonString);
         const rownowdate = rowdate.date;
         const [month, day, year] = rownowdate.split('/');
@@ -33,7 +31,6 @@ module.exports.executeToday = async function (interaction) {
                 await interaction.editReply({content: '本日の予定はありません'});
                 return;
             }else{
-                //console.log(sendSchedule);
                 await interaction.editReply({content: '本日の予定\n' + sendMessage});
             }
         }catch(error){
@@ -41,7 +38,6 @@ module.exports.executeToday = async function (interaction) {
             console.error('ファイルの読み込みに失敗しました: ', error);
         }
         
-        //await interaction.editReply('today');
     }catch(error){
         console.error('APIの取得に失敗しました: ', error);
     }

@@ -1,5 +1,6 @@
 const fs = require('fs').promises;
 const axios = require('axios');
+const { checkConfigfileExist } = require('./checkConfigfileExist.js');
 module.exports.deletePreviousSchedule = async function () {
     //現在時刻を取得
     const response = await axios.get('https://timeapi.io/api/Time/current/zone?timeZone=Asia/Tokyo');
@@ -11,11 +12,17 @@ module.exports.deletePreviousSchedule = async function () {
     const nowtime = rowdate.time;
 
     const directoryPath = './data';
+    const configPath = './config';
     try{
         const files = await fs.readdir(directoryPath);
         for(const file of files){
             const filePath = `${directoryPath}/${file}`;
-            //console.log(filePath);
+            const configFilePath = `${configPath}/${file}`;
+            checkConfigfileExist(configFilePath);
+            const configData = await fs.readFile(configFilePath, 'utf-8');
+            const config = JSON.parse(configData);
+            const scheduleDeleteorNot = config.scheduleDeleteorNot;
+            if(!scheduleDeleteorNot)continue;
             const data = await fs.readFile(filePath, 'utf-8');
             const schedule = JSON.parse(data);
             let deleteIndex = 0;

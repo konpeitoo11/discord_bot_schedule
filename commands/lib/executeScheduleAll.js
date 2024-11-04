@@ -1,5 +1,3 @@
-const scheduleAll = require('../schedule-all');
-
 const fs = require('fs').promises;
 module.exports.executeScheduleAll = async function (interaction) {
     const user = interaction.user.id;

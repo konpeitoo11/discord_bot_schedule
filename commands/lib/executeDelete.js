@@ -31,13 +31,10 @@ module.exports.executeDelete = async function (interaction) {
         //const collector = interaction.channel.createMessageCollector({filter: __filter, time: 30000});
         const collector = response.createMessageComponentCollector({componentType: ComponentType.StringSelect, time: 30000});
 
-        //console.log('3');
-
         collector.on('collect', async message => {
             const index = parseInt(message.values[0]);
 
             //予定の削除
-            //console.log('10');
             schedule.splice(index, 1);
             try{
                 await message.reply({content: '削除しました', ephemeral: true});//message自体にreplyしないと(3秒以内)インタラクションに失敗した判定になる

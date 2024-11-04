@@ -25,7 +25,7 @@ module.exports.remindSchedule = async function (client) {
                     const scheduleHour = s.time.split(':')[0];
                     if(parseInt(scheduleHour) - parseInt(nowHour) == 1){
                         if(parseInt(s.time.split(':')[1]) - parseInt(nowtime.split(':')[1]) == 0){//ちょうど1時間前
-                            sendSchedule = `${s.date} ${s.time} ${s.context}\n`;
+                            sendSchedule = `${s.date} ${s.time}\n${s.context}\n`;
                             sendMessage += sendSchedule;
                         }
                     }
