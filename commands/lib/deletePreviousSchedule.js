@@ -3,7 +3,9 @@ const axios = require('axios');
 const { checkConfigfileExist } = require('./checkConfigfileExist.js');
 module.exports.deletePreviousSchedule = async function () {
     //現在時刻を取得
+    //console.log('0');//
     const response = await axios.get('https://timeapi.io/api/Time/current/zone?timeZone=Asia/Tokyo');
+    //console.log('1');//
     const jsonString = JSON.stringify(response.data);
     const rowdate = JSON.parse(jsonString);
     const rownowdate = rowdate.date;
